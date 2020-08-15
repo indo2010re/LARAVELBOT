@@ -159,8 +159,6 @@ REG1=$(cat ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | se
     echo "$USER filenya siap digunakan."
     sleep 2
     ./scan
-  else
-    ./scan
   fi
   exit 1 
  
