@@ -16,8 +16,12 @@ LK='\e[43m'
   CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
   if [[ $CX != $CZ ]]; then
     echo "Script Butuh diupdate"
-    wget "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"; rm -f scan; mv yo.txt scan; chmod +x scan
+    wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt" 
+    rm -f scan 
+    mv yo.txt scan 
+    chmod +x scan
     echo "$USER filenya siap digunakan."
+    sleep 2
     ./scan
   else
     ./scan
