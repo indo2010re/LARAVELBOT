@@ -150,29 +150,34 @@ REG1=$(cat ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | se
                 fi
 }
 
-  if [[ $CX != $CZ ]]; then
-    echo "Script Butuh diupdate"
-    wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt" 
-    rm -f scan 
-    mv yo.txt scan 
-    chmod +x scan
-    echo "$USER filenya siap digunakan."
-    sleep 2
-    echo "./$0"
-  fi
-  exit 1 
  
 echo ""
-read -p "Weblist: " TARGETX
-if [[ ! -f $TARGETX ]]; then
-        echo " $TARGETX Tidak Ditemukan"
-        exit 1
-fi
+read -r -p "Mau diupdate dulu gak? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+	CX=`cat $0 | sha256sum`
+	CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
+	if [[ $CX != $CZ ]]; then
+		echo "Updating script... Please wait."
+		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"
+		echo "Siap dijalankan $B $USER"
+	else
+		echo "Script are up to date"
+	fi
+	exit 1
+        ;;
+    *)
+        echo ""
+        read -p "Weblist: " TARGETX
+        if [[ ! -f $TARGETX ]]; then
+                echo " $TARGETX Tidak Ditemukan"
+                exit 1
+        fi
+        IFS=$'\r\n'
+        n=1
+        t=2
 
-IFS=$'\r\n'
-n=1
-t=2
-for TARGET in $(cat $TARGETX); do
+        for TARGET in $(cat $TARGETX); do
         f=$(expr $n % $t)
         if [[ $f == 0 && $n > 0 ]]; then
                 sleep 1
@@ -181,3 +186,6 @@ for TARGET in $(cat $TARGETX); do
         n=$[$n+1]
 done
 wait
+;;
+esac
+
