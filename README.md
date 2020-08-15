@@ -8,9 +8,10 @@ Laravel BOT
 ```
 git clone https://github.com/indo2010re/LARAVELBOT/
 cd LARAVELBOT
-mv yo.txt scan
 chmod +x scan
 ```
+# YOU NEED TO UPDATE THIS SCRIPT BEFORE RUN
+
 # HOW TO RUN?
 for run this script using command :
 `./scan`
