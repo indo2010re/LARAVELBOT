@@ -11,21 +11,12 @@ LM='\e[41m'
 LB='\e[100m'
 LK='\e[43m'
 
-trap ctrl_c INT
-function ctrl_c() {
-    echo ""
-    echo "Ctrl-C by $USER"
-    echo "Bersihkan layar tunggu sebentar."
-    sleep 3
-    clear
-    exit
-}
 
   CX=`cat $0 | sha256sum`
   CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
   if [[ $CX != $CZ ]]; then
     echo "Script Butuh diupdate"
-    wget "http://slackerc0de.us/v9ppval/nyu.txt"; rm -f validator; mv nyu.txt validator; chmod +x validator
+    wget "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"; rm -f scan; mv yo.txt scan; chmod +x scan
     echo "$USER filenya siap digunakan."
   else
     echo ""
