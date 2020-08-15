@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+#coupdegrace
 
 tgl=$(date +'%A, %d %B %Y')
 B="\033[1m"
@@ -27,7 +27,8 @@ cat <<COUP
 | ctrl |  | alt |                          | alt  |  | ctrl |
 '------'  '-----'--------------------------'------'  '------'
                 Author : CoupDeGrace
-           Big Thanks : d3b~x && Index Php    
+           Big Thanks : d3b~x && Index Php
+           Update secara berkala scriptnya ya    
 COUP
 if [ ! -d result ];then
  mkdir result
@@ -155,13 +156,13 @@ echo ""
 read -r -p "Mau diupdate dulu gak? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
-	CX=`cat $0 | sha256sum`
-	CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
+CX=`cat $0 | sha256sum`
+CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 	if [[ $CX != $CZ ]]; then
 		echo "Updating script... Please wait."
 		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"
-                rm scan
-                mv yo.txt scan
+                rm scan;
+                mv yo.txt scan;
                 chmod +x scan
 		echo -e "Siap dijalankan $MERAH $B $USER $NOR"
 	else
