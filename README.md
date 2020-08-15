@@ -6,6 +6,7 @@ Laravel BOT
 ```
 git clone https://github.com/indo2010re/LARAVELBOT/
 cd LARAVELBOT
+mv yo.txt scan
 chmod +x scan
 ./scan
 ```
