@@ -160,9 +160,9 @@ case "$response" in
 	if [[ $CX != $CZ ]]; then
 		echo "Updating script... Please wait."
 		wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"
-		echo "Siap dijalankan $B $USER"
+		echo -e "Siap dijalankan $MERAH $B $USER $NOR"
 	else
-		echo "Script are up to date"
+		echo "Script sudah terbaru"
 	fi
 	exit 1
         ;;
@@ -175,7 +175,7 @@ case "$response" in
         fi
         IFS=$'\r\n'
         n=1
-        t=2
+        t=1
 
         for TARGET in $(cat $TARGETX); do
         f=$(expr $n % $t)
