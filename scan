@@ -39,7 +39,7 @@ cat <<COUP
                 Author : CoupDeGrace
            Big Thanks : d3b~x && Index Php    
 COUP
-echo -e "                $B $KUN usage [bash ./$0] $NOR"
+echo -e "                  $B $KUN usage $0 $NOR"
 if [ ! -d cok ];then
  mkdir cok
 fi
