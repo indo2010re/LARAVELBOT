@@ -10,23 +10,8 @@ NOR="\e[0m"
 LM='\e[41m'
 LB='\e[100m'
 LK='\e[43m'
-
-
-  CX=`cat $0 | sha256sum`
-  CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
-  if [[ $CX != $CZ ]]; then
-    echo "Script Butuh diupdate"
-    wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt" 
-    rm -f scan 
-    mv yo.txt scan 
-    chmod +x scan
-    echo "$USER filenya siap digunakan."
-    sleep 2
-    ./scan
-  else
-    ./scan
-  fi
-  exit 1 
+CX=`cat $0 | sha256sum`
+CZ=`curl "http://www.bimmer.in.th/generator/cdg.txt" -s | sha256sum`
 
 echo ""
 cat <<COUP
@@ -165,6 +150,19 @@ REG1=$(cat ses3.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | se
                 fi
 }
 
+  if [[ $CX != $CZ ]]; then
+    echo "Script Butuh diupdate"
+    wget -q "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt" 
+    rm -f scan 
+    mv yo.txt scan 
+    chmod +x scan
+    echo "$USER filenya siap digunakan."
+    sleep 2
+    ./scan
+  else
+    ./scan
+  fi
+  exit 1 
  
 echo ""
 read -p "Weblist: " TARGETX
