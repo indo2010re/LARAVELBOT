@@ -193,7 +193,7 @@ CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
         IFS=$'\r\n'
         n=1
         t=1
-        for TARGET in $(cat tmp/$TARGETX); do
+        for TARGET in $(cat $TARGETX); do
         f=$(expr $n % $t)
         if [[ $f == 0 && $n > 0 ]]; then
                 sleep 1
