@@ -12,3 +12,5 @@ chmod +x scan
 
 for run this script using command :
 `./scan`
+
+![Screencast_08-16-2020_01_04_51 AM](https://user-images.githubusercontent.com/59824982/90318763-e0d0ff80-df5c-11ea-90f0-c2a03b42eba8.gif)
