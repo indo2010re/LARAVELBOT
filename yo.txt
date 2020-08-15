@@ -18,8 +18,9 @@ LK='\e[43m'
     echo "Script Butuh diupdate"
     wget "https://raw.githubusercontent.com/indo2010re/LARAVELBOT/master/yo.txt"; rm -f scan; mv yo.txt scan; chmod +x scan
     echo "$USER filenya siap digunakan."
+    ./scan
   else
-    echo ""
+    ./scan
   fi
   exit 1 
 
