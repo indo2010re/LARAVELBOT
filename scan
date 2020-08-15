@@ -1,4 +1,5 @@
-/env bash
+#!/usr/bin/env bash
+#
 #coupdegrace
 
 tgl=$(date +'%A, %d %B %Y')
@@ -10,6 +11,7 @@ NOR="\e[0m"
 LM='\e[41m'
 LB='\e[100m'
 LK='\e[43m'
+KUN='\e[45m'
 
 trap ctrl_c INT
 function ctrl_c() {
@@ -35,9 +37,9 @@ cat <<COUP
 | ctrl |  | alt |                          | alt  |  | ctrl |
 '------'  '-----'--------------------------'------'  '------'
                 Author : CoupDeGrace
-           Big Thanks : d3b~x && Index Php
-           Update secara berkala scriptnya ya    
+           Big Thanks : d3b~x && Index Php    
 COUP
+echo -e "                $B $KUN usage [bash $0] $NOR"
 if [ ! -d cok ];then
  mkdir cok
 fi
@@ -174,7 +176,7 @@ CX=`cat $0 | sha256sum`
 CZ=`curl "http://103.146.202.117/cdg.txt" -s | sha256sum`
 	if [[ $CX != $CZ ]]; then
 		echo "Updating script... Please wait."
-		wget -q "http://103.146.202.117/yo.txt";rm scan;mv yo.txt scan
+		wget -q "http://103.146.202.117/yo.txt";rm scan;mv yo.txt laravelbot.sh
 		echo -e "Siap dijalankan $MERAH $B $USER $NOR"
 	else
 		echo "Script sudah terbaru"
